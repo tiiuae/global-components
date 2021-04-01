@@ -40,14 +40,14 @@
 
 #define HARDWARE_CLOCK_INTERFACES   \
     emits Dummy dummy_source;       \
-    consumes Dummy clk;             \
+    consumes Dummy spt;             \
 
 #define HARDWARE_CLOCK_EXTRA_INTERFACES
 
 #define HARDWARE_CLOCK_ATTRIBUTES
 
 #define HARDWARE_CLOCK_COMPOSITION  \
-    connection seL4DTBHardware clk_conn(from dummy_source, to clk); \
+    connection seL4DTBHardware spt_conn(from dummy_source, to spt); \
 
 #define HARDWARE_CLOCK_CONFIG   \
-    clk.dtb = dtb({ "path" : "/timer" });
+    spt.dtb = dtb({ "path" : "/timer" });
