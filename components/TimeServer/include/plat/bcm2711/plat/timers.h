@@ -5,16 +5,21 @@
  */
 #pragma once
 
+/*
+ *  hwtimer.mem_paddr = 0xfe003000;                                     
+ *  hwtimer.mem_size = 0x1000;                                          
+ *  hwtimer.irq_irq_number = 97;                                        
+ *  hwtimer.irq_irq_type = "arm";                                       
+ *  hwtimer.irq_irq_trigger = "edge";
+ */
+
 #define HARDWARE_TIMER_INTERFACES                                                   \
-    emits Dummy dummy_source;                                                       \
-    consumes Dummy spt;
+    consumes Dummy bcm_timer;                                                       \
+    emits Dummy dummy_source;
 #define HARDWARE_TIMER_ATTRIBUTES
 #define HARDWARE_TIMER_COMPOSITION                                                  \
-        connection seL4DTBHardware spt_conn(from dummy_source, to spt);
+        connection seL4DTBHardware bcm_timer_conn(from dummy_source, to bcm_timer);
 #define HARDWARE_TIMER_CONFIG                                                       \
-        spt.dtb = dtb({"path" : "/timer"});                                         \
-        spt.generate_interrupts = 1;                                                \
-        //spt.irq_irq_number = 42;                                                    
-        //spt.irq_irq_type = "arm";                                                   
-        //spt.irq_irq_trigger = "edge";                                               
+        bcm_timer.dtb = dtb({"path" : "/soc/timer@7e003000"});                      \
+        bcm_timer.generate_interrupts = 1;
 #define HARDWARE_TIMER_PLAT_INTERFACES
