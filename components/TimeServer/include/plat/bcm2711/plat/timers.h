@@ -27,9 +27,9 @@
                                                       to systimer_irq);  \
         component HWTimer sp804timer;                                    \
         connection seL4HardwareMMIO sp804_mem(from sp804_mem,            \
-                                                 to sp804timer.mem);     \
+                                              to sp804timer.mem);        \
         connection seL4HardwareInterrupt sp804_irq(from sp804timer.irq,  \
-                                          ¸            to sp804_irq);
+                                                   to sp804_irq);
 #define HARDWARE_TIMER_CONFIG                                            \
     systimer.mem_paddr = 0xfe003000;                                     \
     systimer.mem_size = 0x1000;                                          \
