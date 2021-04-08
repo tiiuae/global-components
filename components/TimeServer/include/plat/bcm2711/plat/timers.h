@@ -34,9 +34,7 @@
     systimer.mem_paddr = 0xfe003000;                                     \
     systimer.mem_size = 0x1000;                                          \
     systimer.irq_irq_number = 97;                                        \
-    systimer.irq_irq_type = "arm";                                       \
     sp804timer.mem_paddr = 0xfe00b000;                                   \
     sp804timer.mem_size = 0x1000;                                        \
-    sp804timer.irq_irq_number = 64;                                      \
-    sp804timer.irq_irq_type = "arm";                                     
+    sp804timer.irq_irq_number = 64;                                                                       
 #define HARDWARE_TIMER_PLAT_INTERFACES
