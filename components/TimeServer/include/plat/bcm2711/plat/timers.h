@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 #pragma once
-        
+
 #define HARDWARE_TIMER_COMPONENT                                       \
     component HWTimer {                                                \
         hardware;                                                      \
@@ -17,7 +17,7 @@
     dataport Buf(4096) systimer_mem;                                   \
     dataport Buf(4096) sp804_mem;                                      \
     consumes TimerIRQ systimer_irq;                                    \
-    consumes TimerIRQ sp804_irq;                                    
+    consumes TimerIRQ sp804_irq;
 
 #define HARDWARE_TIMER_ATTRIBUTES
 #define HARDWARE_TIMER_COMPOSITION                                       \
@@ -37,5 +37,5 @@
     systimer.irq_irq_number = 97;                                        \
     sp804timer.mem_paddr = 0xfe00b000;                                   \
     sp804timer.mem_size = 0x1000;                                        \
-    sp804timer.irq_irq_number = 64;                                                                       
+    sp804timer.irq_irq_number = 64;
 #define HARDWARE_TIMER_PLAT_INTERFACES

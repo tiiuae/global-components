@@ -21,7 +21,7 @@
 #define HARDWARE_SERIAL_COMPOSITION                                                 \
         component GPIOHW gpio_hw;                                                   \
         connection seL4DTBHardware serial_conn(from dummy_source, to serial_dev);   \
-        connection seL4HardwareMMIO gpio_mem(from gpiohw_mem, to gpio_hw.mem);               
+        connection seL4HardwareMMIO gpio_mem(from gpiohw_mem, to gpio_hw.mem);
 
 #define HARDWARE_SERIAL_CONFIG                               \
         serial_dev.dtb = dtb({ "chosen" : "stdout-path" });  \
