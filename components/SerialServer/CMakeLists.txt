@@ -15,16 +15,21 @@ endif()
 
 set(CAmkESCPP ON CACHE BOOL "" FORCE)
 
+set(PlatIncPrefix "")
+set(PlatSrcPrefix "")
+
 # ARM platforms have similar serial configurations in their DTSes and can share
 # similar headers and code
 if(KernelArchARM)
+    set(PlatSrcPrefix "arm_common")
     if(KernelPlatformRpi4)
-        set(PlatPrefix "bcm2711")
+        set(PlatIncPrefix "bcm2711")
     else()
-        set(PlatPrefix "arm_common")
+        set(PlatIncPrefix "arm_common")
     endif()
 else()
-    set(PlatPrefix "${KernelPlatform}")
+    set(PlatSrcPrefix "${KernelPlatform}")
+    set(PlatIncPrefix "${KernelPlatform}")
 endif()
 
 DeclareCAmkESComponent(
@@ -33,12 +38,12 @@ DeclareCAmkESComponent(
     src/serial.c
     src/plat.c
     src/server_virtqueue.c
-    src/plat/${PlatPrefix}/plat.c
+    src/plat/${PlatSrcPrefix}/plat.c
     LIBS
     virtqueue
     vswitch
 )
 
-CAmkESAddCPPInclude("${CMAKE_CURRENT_LIST_DIR}/include/plat/${PlatPrefix}/")
+CAmkESAddCPPInclude("${CMAKE_CURRENT_LIST_DIR}/include/plat/${PlatIncPrefix}/")
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/camkes-putchar-client camkes-putchar-client)
