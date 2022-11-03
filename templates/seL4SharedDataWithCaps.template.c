@@ -111,6 +111,19 @@ static seL4_CPtr frame_caps[] = {
 /*- set num_frame_caps = len(frame_caps) -*/
 
 
+/*- set frame_data_struct_name = dataport_symbol_name + "_frame_data" -*/ 
+struct /*? frame_data_struct_name ?*/ {
+    size_t size;
+    size_t size_bits;
+    uintptr_t paddr;
+};
+  
+static struct /*? frame_data_struct_name ?*/ frame_data[] = {
+    /*- for (i, frame) in enumerate(frame_objs) -*/
+    { .size = /*? frame.get_size() ?*/, .size_bits = /*? frame.get_size_bits() ?*/, .paddr = /*? frame.get_paddr(default_ret=-1) ?*/ },
+    /*- endfor -*/
+};
+ 
 static seL4_CPtr /*? me.interface.name ?*/_get_nth_frame_cap(unsigned int n) {
     return frame_caps[n];
 }
@@ -129,6 +142,16 @@ static unsigned int /*? me.interface.name ?*/_get_id(void) {
 
 static size_t /*? me.interface.name ?*/_get_size(void) {
     return /*? dataport_size ?*/;
+}
+
+static size_t /*? me.interface.name ?*/_get_page_size(void) {
+    /* TODO: return size per frame to support multiple sizes? */
+    return /*? frame_data[0].size ?*/;
+}
+
+static size_t /*? me.interface.name ?*/_get_page_size_bits(void) {
+    /* TODO: return size_bits per frame to support multiple sizes? */
+    return /*? frame_data[0].size_bits ?*/;
 }
 
 static seL4_CapRights_t /*? me.interface.name ?*/_get_rights(void) {
@@ -150,5 +173,7 @@ dataport_caps_handle_t /*? me.interface.name ?*/_handle = {
     .get_num_frame_caps = /*? me.interface.name ?*/_get_num_frame_caps,
     .get_frame_caps = /*? me.interface.name ?*/_get_frame_caps,
     .get_size = /*? me.interface.name ?*/_get_size,
+    .get_page_size = /*? me.interface.name ?*/_get_page_size,
+    .get_page_size_bits = /*? me.interface.name ?*/_get_page_size_bits,
     .get_rights = /*? me.interface.name ?*/_get_rights,
 };
